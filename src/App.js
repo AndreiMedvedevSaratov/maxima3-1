@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import ProductList from "./Components/ProductList/ProductList";
 import FetchProducts from "./Components/FetchProducts/FetchProducts";
-import Button1 from "./Components/Button1/Button1";
-import Button2 from "./Components/Button2/Button2";
-import Button3 from "./Components/Button3/Button3";
-import Button4 from "./Components/Button4/Button4";
+import { Route } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Registration } from "./Pages/Registration";
+import { Login } from "./Pages/Login";
+import Product from "./Components/Product/Product";
 
 function App() {
+  const isAuth = true;
+
   const [products, setProducts] = useState([]);
 
   // Поисковая строка, то что вводит пользователь, изначально она пустая
@@ -105,20 +108,42 @@ function App() {
 
       <hr />
 
-      <ProductList
-        products={foundedProducts}
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        categories={categories}
-        selectValue={selectValue}
-        setSelectValue={setSelectValue}
-      />
+      <Routes>
+        <Route
+          path="/product/:id"
+          element={
+            isAuth ? <Product allProducts={products} /> : <Registration />
+          }
+        ></Route>
 
-      <hr></hr>
-      <Button1></Button1>
-      <Button2></Button2>
-      <Button3></Button3>
-      <Button4></Button4>
+        {/* <Route
+          path="/basket"
+          element={isAuth ? <Basket /> : <Registration />}
+        ></Route> */}
+
+        <Route
+          path="/products"
+          element={
+            isAuth ? (
+              <ProductList
+                products={foundedProducts}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                categories={categories}
+                selectValue={selectValue}
+                setSelectValue={setSelectValue}
+                allProducts={products}
+              />
+            ) : (
+              <Registration />
+            )
+          }
+        ></Route>
+
+        <Route path="/login" element={<Login />}></Route>
+
+        <Route path="/" element={<Registration />}></Route>
+      </Routes>
     </div>
   );
 }

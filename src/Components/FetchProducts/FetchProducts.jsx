@@ -9,6 +9,7 @@ function FetchProducts({ setProducts }) {
       .then((response) => response.json())
       .then((response) => {
         setProducts(response.products);
+        localStorage.setItem('allProducts', JSON.stringify(response));
       })
       .catch((e) => {
         console.log(e);

@@ -7,6 +7,12 @@ function Product({ product, allProducts }) {
   const params = useParams();
   const prodId = params.id;
 
+  // console.log(allProducts);
+
+  // if (allProducts === undefined) {
+  //   allProducts = JSON.parse(localStorage.getItem('allProducts')).products;
+  // }
+
   // console.log(product);
   // console.log(allProducts);
 
