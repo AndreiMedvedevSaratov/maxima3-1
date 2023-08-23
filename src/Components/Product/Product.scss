@@ -1,0 +1,16 @@
+.product {
+  min-width: 300px;
+  max-width: 300px;
+  width: 300px;
+  min-height: 700px;
+  max-height: 1300px;
+  border: 1px solid black;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.product__image {
+  margin: 0 auto;
+  width: 200px;
+}
