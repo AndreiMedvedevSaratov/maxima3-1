@@ -1,23 +1,21 @@
 import "./Product.scss";
 import Rating from '@mui/material/Rating';
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { addBasket } from "../../store/reducers/products";
 
 function Product({ product, allProducts }) {
   const params = useParams();
+  const dispatch = useDispatch();
   const prodId = params.id;
-
-  // console.log(allProducts);
-
-  // if (allProducts === undefined) {
-  //   allProducts = JSON.parse(localStorage.getItem('allProducts')).products;
-  // }
-
-  // console.log(product);
-  // console.log(allProducts);
 
   if (product === undefined) {
     product = allProducts[prodId - 1];
+  }
+
+  const handleAddProduct = (product) => {
+    dispatch(addBasket(product))
   }
 
   return <div className="product">
@@ -32,7 +30,7 @@ function Product({ product, allProducts }) {
         <p>Категория товара: <b>{product.category}</b></p>
         <p>Рейтинг: <b>{product.rating} stars</b></p>
         <Rating name="read-only" value={product.rating} precision={0.1} size="large" readOnly />
-        <button>Добавить в корзину</button>
+        <button onClick={handleAddProduct}>Добавить в корзину</button>
       </>
       : <p>Пустая карточка товара</p>
     }

@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import "./ProductList.scss";
 import Product from "../Product/Product";
+import { authLogout } from "../../store/reducers/auth";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function ProductList({ products, searchValue, setSearchValue, categories, selectValue, setSelectValue, allProducts }) {
   const [options, setOptions] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (categories !== undefined) {
@@ -11,9 +15,21 @@ function ProductList({ products, searchValue, setSearchValue, categories, select
     }
   }, [categories]);
 
+  const handleLogout = () => {
+    dispatch(authLogout());
+  };
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/basket`;
+    navigate(path);
+  };
+
   return (
     <div className="product-list">
       <h1 className="product-list__h1">Список товаров</h1>
+      <button onClick={handleLogout}>Разлогиниться</button>
+      <button onClick={routeChange}>Перейти в корзину</button>
 
       <input
         type="text"

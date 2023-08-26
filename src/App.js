@@ -7,11 +7,18 @@ import { Routes } from "react-router-dom";
 import { Registration } from "./Pages/Registration";
 import { Login } from "./Pages/Login";
 import Product from "./Components/Product/Product";
+import { useSelector } from "react-redux";
+import Basket from "./Pages/Basket";
 
 function App() {
-  const isAuth = true;
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const productsFromRedux = useSelector((state) => state.products.products);
 
-  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    setProducts(productsFromRedux);
+  }, [productsFromRedux]);
+
+  const [products, setProducts] = useState(productsFromRedux);
 
   // Поисковая строка, то что вводит пользователь, изначально она пустая
   const [searchValue, setSearchValue] = useState("");
@@ -104,7 +111,7 @@ function App() {
 
   return (
     <div className="App">
-      <FetchProducts setProducts={setProducts} />
+      {isAuth && <FetchProducts />}
 
       <hr />
 
@@ -116,10 +123,10 @@ function App() {
           }
         ></Route>
 
-        {/* <Route
+        <Route
           path="/basket"
           element={isAuth ? <Basket /> : <Registration />}
-        ></Route> */}
+        ></Route>
 
         <Route
           path="/products"

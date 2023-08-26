@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { authLogin } from "../../store/reducers/auth";
+import { useDispatch } from "react-redux";
+import { authLogin } from "../../store/reducers/auth";
 
 export const Login = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   let navigate = useNavigate();
   const routeChange = () => {
@@ -17,7 +17,7 @@ export const Login = () => {
   const [password, setPassword] = useState("12345");
 
   const handleClick = () => {
-    // dispatch(authLogin({ login: login, password: password }));
+    dispatch(authLogin({ login: login, password: password }));
     routeChange();
   };
 

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./registration.css";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { authRegistration } from "../../store/reducers/auth";
+import { useDispatch } from "react-redux";
+import { authRegistration } from "../../store/reducers/auth";
 
 export const Registration = () => {
   let logins = JSON.parse(localStorage.getItem("logins"));
@@ -10,7 +10,7 @@ export const Registration = () => {
     logins = [];
   }
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   let navigate = useNavigate();
   const routeChange = () => {
@@ -37,7 +37,7 @@ export const Registration = () => {
     }
     localStorage.setItem("logins", JSON.stringify(logins));
 
-    // dispatch(authRegistration({ login: login, password: password }));
+    dispatch(authRegistration({ login: login, password: password }));
     routeChange();
   };
 
